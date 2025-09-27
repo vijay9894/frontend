@@ -17,5 +17,5 @@ const SocialSlice = createSlice({
     }
 })
 
-export const {addSocialBook , emptybook} = SocialSlice.actions
+export const {addSocialBook , emptybook} = SocialSlice.actions;
 export default SocialSlice.reducer;
