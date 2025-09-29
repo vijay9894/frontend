@@ -127,7 +127,7 @@ function Design() {
                 </div>
             </div>
 
-            <div className="ml-40 h-145 w-420 mt-8 shadow-xl/20 rounded-lg border border-gray-200 flex">
+            <div className="ml-40 h-145 w-420 mt-8 shadow-xl/20 rounded-lg border border-gray-200 bg-gray-600 text-white flex">
                 <div className="w-120 h-130 mt-3 ml-10 rounded-lg">
                     <h1 className="mt-6 ml-10 text-2xl font-semibold"> Popular Libraries</h1>
                     <hr className="mt-2 "></hr>

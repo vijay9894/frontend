@@ -42,6 +42,7 @@ function Pratice() {
                     <CarouselContent>
                         {movies.map((item) => (
                             <CarouselItem className="basis-1/4">
+                                <button className="focus:outline-none cursor-pointer hover:scale-105 transition-transform duration-300 ">
                                 <Card className="w-96 mx-2 my-2 pb-12 h-50 bg-white text-black flex shadow-xl/30">
                                     <CardHeader>
                                         <CardTitle className="font-semibold">{item.name}</CardTitle>
@@ -56,6 +57,7 @@ function Pratice() {
                                         <p>{item.about}</p>
                                     </CardFooter>
                                 </Card>
+                                </button>
                             </CarouselItem>
                         ))}
                     </CarouselContent>
