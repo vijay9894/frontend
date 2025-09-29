@@ -25,6 +25,9 @@ totalBookCount = socialcount + mathsCount;
 function goToHome(){
      navigate("/home")
 }
+function goToPratice(){
+    navigate("/pratice")
+}
     
 return (
         <>
@@ -32,6 +35,7 @@ return (
                <p className="text-white ">  No of Books Are Added : {totalBookCount} </p>
                <div className="">
                        < button className="border-2 border-white rounded-xl p-3 mt-4 text-white cursor-pointer " onClick={goToHome}> Go To Home </button>
+                       < button className="ml-4 border-2 border-white rounded-xl p-3 mt-4 text-white cursor-pointer " onClick={goToPratice}> Go To Main </button>
                </div>
           </div>
         </>

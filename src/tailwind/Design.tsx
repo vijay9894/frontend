@@ -1,5 +1,6 @@
 import { AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
+import { FiShoppingCart } from "react-icons/fi";
 import {
     NavigationMenu,
     NavigationMenuItem,
@@ -13,12 +14,52 @@ import {
     PopoverTrigger,
 } from "@/components/ui/popover"
 import { IoIosSearch } from "react-icons/io";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom"
 
-function handleAccountClick() {
-    alert("Account Clicked")
-}
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+
+import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
+import Pratice from "./Pratice";
+
+
+
 
 function Design() {
+    const navigate = useNavigate();
+    const socialBooks = useSelector((state: any) => state.Social.books);
+    const mathBooks = useSelector((state: any) => state.Maths.books)
+    let totalBookCount = 0;
+
+    let socialcount = 0;
+    for (let i = 0; i < socialBooks.length; i++) {
+        socialcount = socialcount + 1;
+    }
+
+    let mathsCount = 0;
+    for (let i = 0; i < mathBooks.length; i++) {
+        mathsCount = mathsCount + 1;
+    }
+
+    totalBookCount = socialcount + mathsCount;
+
+    function handleAccountClick() {
+        navigate('/home');
+    }
+
+    function handleLogout() {
+        localStorage.removeItem('email');
+        localStorage.removeItem('password');
+        navigate('/');
+    }
+
     return (
         <>
             <div className="h-20 flex items-center rounded-lg border border-gray-200">
@@ -57,24 +98,32 @@ function Design() {
                     <h1>NPM</h1>
                 </div>
                 <div className="ml-15 text-2xl flex">
-                    <IoIosSearch className=" absolute text-3xl ml-2 mt-3 text-gray-400"/>
-                        <input className=" ml-10 border border-gray-300 h-15 w-300 pl-3 bg-gray-200 focus:outline-none" placeholder="Search..." type="text" >
-                        </input>
+                    <IoIosSearch className=" text-3xl ml-2 mt-3 text-gray-400" />
+                    <input className=" ml-5 border border-gray-300 h-15 w-300 pl-3 bg-gray-200 focus:outline-none" placeholder="Search..." type="text" >
+                    </input>
                 </div>
                 <div className="ml-1 text-2xl ">
                     <Button className="cursor-pointer h-15 w-30">Search</Button>
                 </div>
+                <div className="ml-10 text-2xl cursor-pointer flex" onClick={() => navigate('/cart')}>
+                    <FiShoppingCart />
+                    <div className="text-sm text-white bg-red-600 h-4 w-5 flex justify-center items-center rounded-full">
+                        {totalBookCount}
+                    </div>
+                </div>
                 <div className="ml-10">
-                    <Popover>
-                        <PopoverTrigger>
-                            <Avatar className="mt-8 cursor-pointer">
-                                <AvatarImage className="h-10 rounded-lg" src="https://github.com/shadcn.png" />
-                                <AvatarFallback>CN</AvatarFallback>
-                            </Avatar>
-                        </PopoverTrigger>
-                        <PopoverContent className="text-md font-semibold flex justify-center items-center w-40 bg-gray-100 cursor-pointer shadow-md" onClick={handleAccountClick}> Account </PopoverContent>
-                    </Popover>
-
+                    <DropdownMenu>
+                        <DropdownMenuTrigger>  <Avatar className="mt-8 cursor-pointer">
+                            <AvatarImage className="h-10 rounded-lg" src="https://github.com/shadcn.png" />
+                            <AvatarFallback>CN</AvatarFallback>
+                        </Avatar>  </DropdownMenuTrigger>
+                        <DropdownMenuContent className="w-40 bg-black text-white">
+                            <DropdownMenuLabel className="text-xl font-semibold">My Account</DropdownMenuLabel>
+                            <DropdownMenuSeparator />
+                            <DropdownMenuItem className=" text-md cursor-pointer" onClick={handleAccountClick}>Profile</DropdownMenuItem>
+                            <DropdownMenuItem className="text-md cursor-pointer" onClick={handleLogout}>Log Out</DropdownMenuItem>
+                        </DropdownMenuContent>
+                    </DropdownMenu>
                 </div>
             </div>
 
@@ -189,7 +238,6 @@ function Design() {
                     <h1 className="mt-1 text-2xl font-semibold"> 8,312,000+</h1>
                     <hr className="mt-3 "></hr>
                 </div>
-
             </div>
         </>
     )
