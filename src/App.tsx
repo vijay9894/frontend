@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import ReducerExample from './reducer/example.tsx';
 import Cart from './cart/cart.tsx';
 import Pratice from './tailwind/Pratice.tsx';
+import Design from './tailwind/Design.tsx';
 
 function App() {
   return (
@@ -14,7 +15,8 @@ function App() {
               <Route path='/home' element={<Home/>}/>
               <Route path='/example' element={<ReducerExample/>}/> 
               <Route path='/cart' element={<Cart/>}/>
-               <Route path='/tailwind' element={<Pratice/>}/>
+              <Route path='/tailwind' element={<Pratice/>}/>
+              <Route path='/pratice' element={<Design/>}/>
          </Routes>
     </BrowserRouter>
     </>
