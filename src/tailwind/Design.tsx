@@ -25,11 +25,16 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-
-import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
 import Pratice from "./Pratice";
-
-
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "@/components/ui/dialog"
+import { DialogClose } from "@radix-ui/react-dialog";
 
 
 function Design() {
@@ -64,11 +69,24 @@ function Design() {
         <>
             <div className="h-20 flex items-center rounded-lg border border-gray-200">
                 <div className="ml-40 text-2xl ">
-                    <button className="cursor-pointer">
+                   <Dialog>
+                     <DialogTrigger className="cursor-pointer">
                         <NavigationMenu>
                             <NavigationMenuList>Pro</NavigationMenuList>
                         </NavigationMenu>
-                    </button>
+                    </DialogTrigger>
+                    <DialogContent className="h-50 shadow-xl rounded-lg border border-black">
+                        <DialogHeader>
+                            <DialogTitle className="text-2xl font-bold">Get Tailwind CSS Pro</DialogTitle>
+                            <DialogDescription className="mt-4 text-lg">
+                                Unlock advanced features and components with Tailwind CSS Pro. Elevate your projects with premium tools designed for professionals.
+                            </DialogDescription>
+                        </DialogHeader>
+                        <DialogClose className="mt-5">
+                            <Button className="h-10 w-20 cursor-pointer bg-white text-black hover:gray-100">Close</Button>
+                        </DialogClose>
+                    </DialogContent>
+                  </Dialog>
                 </div>
                 <div className="ml-15 text-2xl ">
                     <button className="cursor-pointer">
@@ -93,7 +111,7 @@ function Design() {
                 </div>
             </div>
 
-            <div className="h-25 flex items-center shadow-xl rounded-lg border border-gray-200">
+            <div className="h-25 flex items-center shadow-xl rounded-lg border border-gray-200 sticky top-0 z-50 bg-white">
                 <div className="ml-40 text-bold text-4xl ">
                     <h1>NPM</h1>
                 </div>
@@ -127,9 +145,9 @@ function Design() {
                 </div>
             </div>
 
-            <div className="ml-40 h-145 w-420 mt-8 shadow-xl/20 rounded-lg border border-gray-200 bg-gray-600 text-white flex">
+            <div className="ml-40 h-145 w-420 mt-8 shadow-xl/20 rounded-lg border border-gray-200  flex">
                 <div className="w-120 h-130 mt-3 ml-10 rounded-lg">
-                    <h1 className="mt-6 ml-10 text-2xl font-semibold"> Popular Libraries</h1>
+                    <h1 className="mt-6 ml-10 text-2xl font-semibold"> Popular Libraries </h1>
                     <hr className="mt-2 "></hr>
                     <h2 className="mt-1 text-2xl font-semibold"> react </h2>
                     <hr className="mt-2 "></hr>
@@ -239,6 +257,7 @@ function Design() {
                     <hr className="mt-3 "></hr>
                 </div>
             </div>
+            <Pratice />
         </>
     )
 }

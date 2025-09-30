@@ -1,59 +1,59 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { addSocialBook , emptybook} from "../appstore/slices/SocialSlice";
+import { addSocialBook, emptybook } from "../appstore/slices/SocialSlice";
 import { addMathBook } from "../appstore/slices/MathSlice";
 
 
-    interface RootState {
-        Social: {
-            books: []; // Replace 'any' with the actual type of books if known
-        };
-    }
+
+interface RootState {
+    Social: {
+        books: []; // Replace 'any' with the actual type of books if known
+    };
+}
 
 function Home() {
     const navigate = useNavigate();
     useEffect(() => {
-
-        if (localStorage.getItem('email') && localStorage.getItem('password')) {
+        if (localStorage.getItem('email')) {
             console.log("navigating to home");
             navigate('/home');
         } else {
             navigate('/');
         }
     }, [])
-    const email = localStorage.getItem('email');
+
+   const email = localStorage.getItem('email');
 
     // Logout Functionalitty 
     function handleLogout() {
         localStorage.removeItem('email');
-        localStorage.removeItem('password');
         dispatch(emptybook(""))
         navigate('/');
     }
 
 
     let socialbooks = useSelector((state: RootState) => state.Social.books)
-     let mathsbooks = useSelector((state: any) => state.Maths.books)
+    let mathsbooks = useSelector((state: any) => state.Maths.books)
 
-    let dispatch= useDispatch();
-    
+    let dispatch = useDispatch();
+
     useEffect(() => {
-        
-    }, [socialbooks , mathsbooks ]);
+
+    }, [socialbooks, mathsbooks]);
 
 
-    function goToCart(){
-        console.log("getbooks" , socialbooks)
+    function goToCart() {
+        console.log("getbooks", socialbooks)
         navigate('/cart');
     }
 
-    function addBookToSocialSlice(){
-            dispatch(addSocialBook("social book"))
+    function addBookToSocialSlice() {
+        dispatch(addSocialBook("social book"))
     }
 
-    function addBookToMathsSlice(){
-            dispatch(addMathBook("maths book"))
+    function addBookToMathsSlice() {
+        dispatch(addMathBook("maths book"))
     }
 
     return (
@@ -63,7 +63,7 @@ function Home() {
             </div>
             <div className="flex justify-center h-200 bg-black">
                 <div className="flex  justify-center items-center">
-                    <h1 className="text-3xl text-white font-bold ">Welcome {email}</h1>
+                    <h1 className="text-3xl text-white font-bold ">Welcome {email} </h1>
                 </div>
                 <div className="">
                     <button className="ml-6 border-2 border-white text-white rounded-xl p-4 cursor-pointer" onClick={addBookToSocialSlice}> AddSocialBook :{socialbooks.length}</button>
