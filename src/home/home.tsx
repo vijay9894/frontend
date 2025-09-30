@@ -28,6 +28,9 @@ function Home() {
     // Logout Functionalitty 
     function handleLogout() {
         localStorage.removeItem('email');
+        if(localStorage.getItem('password')){
+            localStorage.removeItem('password');
+        }
         dispatch(emptybook(""))
         navigate('/');
     }

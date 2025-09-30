@@ -31,9 +31,9 @@ function MyLogin() {
 
 
     function handleClick() {
-            const email = (document.getElementById('myInput') as HTMLInputElement).value;
+            const formemail = (document.getElementById('myInput') as HTMLInputElement).value;
             const password = (document.getElementById('myPassword') as HTMLInputElement).value;
-            localStorage.setItem('email', email);
+            localStorage.setItem('email', formemail);
             localStorage.setItem('password', password);
             navigate('/home');
         
