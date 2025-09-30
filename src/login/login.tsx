@@ -48,13 +48,13 @@ function MyLogin() {
         <div className="border-2 border-pink text-white rounded-lg lg:w-105 lg:h-96 p-10 bg-black sm:h-full w-full flex flex-col justify-center shadow-xl">
             <div className="flex justify-center font-semibold sm:font-bold">   Login Form </div>
             <div className="flex flex-col space-y-8 m-10 justify-center h-60">
-                <input type=" text" id="myInput" placeholder="Enter your email" className="rounded-lg p-2 text-white hover:bg-blue-20" />
-                <input type="password" id="myPassword" placeholder="Enter your password" className="rounded-lg p-2 text-white hover:bg-blue-20" />
-                <button onClick={handleClick} className="bg-blue-600 text-white rounded-lg p-2 text-lg hover:bg-blue-400 ">Login </button>
+                <input type=" text" id="myInput" placeholder="Enter your email" className="rounded-lg p-2 text-white hover:bg-gray-500" />
+                <input type="password" id="myPassword" placeholder="Enter your password" className="rounded-lg p-2 text-white hover:bg-gray-500" />
+                <button onClick={handleClick} className="bg-blue-600 text-white rounded-lg p-2 text-lg hover:bg-blue-400 cursor-pointer">Login </button>
             </div>
             <hr></hr>
             <div className="flex justify-center mt-4">
-                <button onClick={handleEmailLogin} className=" flex text-white rounded-lg p-2 text-lg cursor-pointer">Continue with Google  <FcGoogle className=" text-3xl ml-2"/>  </button>
+                <button onClick={handleEmailLogin} className=" flex text-white rounded-lg p-2 text-lg cursor-pointer hover:bg-gray-800">Continue with Google  <FcGoogle className=" text-3xl ml-2"/>  </button>
             </div>
         </div>
     </div>

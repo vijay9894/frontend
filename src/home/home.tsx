@@ -28,7 +28,7 @@ function Home() {
     // Logout Functionalitty 
     function handleLogout() {
         localStorage.removeItem('email');
-        if(localStorage.getItem('password')){
+        if(localStorage.getItem('password') !== null){
             localStorage.removeItem('password');
         }
         dispatch(emptybook(""))
