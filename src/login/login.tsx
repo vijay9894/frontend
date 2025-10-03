@@ -1,10 +1,17 @@
 import { useNavigate , useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import { FcGoogle } from "react-icons/fc";
+import { useDispatch , useSelector } from "react-redux";
+import { login } from "@/appstore/slices/UserSlice";
 
 function MyLogin() {
 
     const navigate = useNavigate();
+
+
+    const dispatch = useDispatch();
+   
+
     const {search} = useLocation();
 
     const params = new URLSearchParams(search);
@@ -34,6 +41,13 @@ function MyLogin() {
     function handleClick() {
             const formemail = (document.getElementById('myInput') as HTMLInputElement).value;
             const password = (document.getElementById('myPassword') as HTMLInputElement).value;
+            if(!formemail || !password){
+                alert("Please enter email and password");
+                return;
+            }
+             dispatch(login( 
+                {id : 1 , email : formemail}
+            ));
             localStorage.setItem('email', formemail);
             localStorage.setItem('password', password);
             navigate('/home');

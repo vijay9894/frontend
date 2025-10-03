@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addSocialBook, emptybook } from "../appstore/slices/SocialSlice";
 import { addMathBook } from "../appstore/slices/MathSlice";
+import {logout} from "../appstore/slices/UserSlice";
 
 
 
@@ -32,17 +33,19 @@ function Home() {
             localStorage.removeItem('password');
         }
         dispatch(emptybook(""))
+        dispatch(logout());
         navigate('/');
     }
 
 
     let socialbooks = useSelector((state: RootState) => state.Social.books)
     let mathsbooks = useSelector((state: any) => state.Maths.books)
+    const user = useSelector((state: any) => state)
 
     let dispatch = useDispatch();
 
     useEffect(() => {
-
+        console.log("user details", user)
     }, [socialbooks, mathsbooks]);
 
 
