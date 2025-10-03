@@ -1,8 +1,10 @@
-import { useNavigate , useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import { FcGoogle } from "react-icons/fc";
-import { useDispatch , useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { login } from "@/appstore/slices/UserSlice";
+import axios from "axios"
+import api from "../api"
 
 function MyLogin() {
 
@@ -10,21 +12,21 @@ function MyLogin() {
 
 
     const dispatch = useDispatch();
-   
 
-    const {search} = useLocation();
+
+    const { search } = useLocation();
 
     const params = new URLSearchParams(search);
     const email = params.get("email");
 
-    if(email){
-        useEffect(()=>{
-            if(!localStorage.getItem('email')){
+    if (email) {
+        useEffect(() => {
+            if (!localStorage.getItem('email')) {
                 navigate('/')
             }
             localStorage.setItem('email', email as string);
             navigate('/home');
-        },[]);
+        }, []);
     }
 
 
@@ -38,25 +40,30 @@ function MyLogin() {
 
 
 
-    function handleClick() {
-            const formemail = (document.getElementById('myInput') as HTMLInputElement).value;
-            const password = (document.getElementById('myPassword') as HTMLInputElement).value;
-            if(!formemail || !password){
-                alert("Please enter email and password");
-                return;
-            }
-             dispatch(login( 
-                {id : 1 , email : formemail}
-            ));
+    async function handleClick() {
+        const formemail = (document.getElementById('myInput') as HTMLInputElement).value;
+        const password = (document.getElementById('myPassword') as HTMLInputElement).value;
+        if (!formemail || !password) {
+            alert("Please enter email and password");
+            return;
+        }
+        try {
+            const res = await api.post("http://localhost:3000/login", { formemail, password });
+            console.log("Login successful", res.data.email);
+            dispatch(login({ email: res.data.email }))
             localStorage.setItem('email', formemail);
             localStorage.setItem('password', password);
             navigate('/home');
-        
+        }catch (error) {
+            console.error("Login failed", error);
+            alert("Login failed. Please check your credentials.");
+        }
+      
     }
 
- async function handleEmailLogin() {
-      window.location.href = await "http://localhost:3000/google/login"
- }
+    async function handleEmailLogin() {
+        window.location.href = await "http://localhost:3000/google/login"
+    }
 
     return <div className="flex justify-center items-center h-screen bg-gray-700">
         <div className="border-2 border-pink text-white rounded-lg lg:w-105 lg:h-96 p-10 bg-black sm:h-full w-full flex flex-col justify-center shadow-xl">
@@ -68,7 +75,7 @@ function MyLogin() {
             </div>
             <hr></hr>
             <div className="flex justify-center mt-4">
-                <button onClick={handleEmailLogin} className=" flex text-white rounded-lg p-2 text-lg cursor-pointer hover:bg-gray-800">Continue with Google  <FcGoogle className=" text-3xl ml-2"/>  </button>
+                <button onClick={handleEmailLogin} className=" flex text-white rounded-lg p-2 text-lg cursor-pointer hover:bg-gray-800">Continue with Google  <FcGoogle className=" text-3xl ml-2" />  </button>
             </div>
         </div>
     </div>

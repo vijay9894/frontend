@@ -3,7 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addSocialBook, emptybook } from "../appstore/slices/SocialSlice";
 import { addMathBook } from "../appstore/slices/MathSlice";
-import {logout} from "../appstore/slices/UserSlice";
+import { logout } from "../appstore/slices/UserSlice";
+import axios from "axios";
+import api from "@/api";
 
 
 
@@ -24,23 +26,26 @@ function Home() {
         }
     }, [])
 
-   const email = localStorage.getItem('email');
+    const email = localStorage.getItem('email');
 
     // Logout Functionalitty 
-    function handleLogout() {
+   async function handleLogout() {
         localStorage.removeItem('email');
-        if(localStorage.getItem('password') !== null){
+        if (localStorage.getItem('password') !== null) {
             localStorage.removeItem('password');
         }
         dispatch(emptybook(""))
+       const res = await api.post("http://localhost:3000/logout")
         dispatch(logout());
         navigate('/');
+        
+        
     }
 
 
     let socialbooks = useSelector((state: RootState) => state.Social.books)
     let mathsbooks = useSelector((state: any) => state.Maths.books)
-    const user = useSelector((state: any) => state)
+    const user = useSelector((state: any) => state.User)
 
     let dispatch = useDispatch();
 
@@ -62,6 +67,20 @@ function Home() {
         dispatch(addMathBook("maths book"))
     }
 
+    async function checkExpiration() {
+
+        try {
+            const res = await api.get("http://localhost:3000/profile")
+            alert("Session is still valid");
+            console.log("Expiration response", res.data);
+        }
+        catch (error) {
+            localStorage.removeItem('email');
+            console.error("Error checking expiration", error);
+        }
+
+    }
+
     return (
         <>
             <div className="bg-black h-15 border-0.1 border-white flex justify-end items-center p-4">
@@ -75,6 +94,7 @@ function Home() {
                     <button className="ml-6 border-2 border-white text-white rounded-xl p-4 cursor-pointer" onClick={addBookToSocialSlice}> AddSocialBook :{socialbooks.length}</button>
                     <button className="ml-6 border-2 border-white text-white rounded-xl p-4 cursor-pointer" onClick={addBookToMathsSlice}> AddMathsBook :{mathsbooks.length} </button>
                     <button className="ml-6 border-2 border-white text-white rounded-xl p-4 cursor-pointer" onClick={goToCart}> GoToCart </button>
+                    <button className="ml-6 border-2 border-white text-white rounded-xl p-4 cursor-pointer" onClick={checkExpiration}> checkExpiration </button>
                 </div>
             </div>
         </>
