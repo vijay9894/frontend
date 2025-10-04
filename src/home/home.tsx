@@ -70,6 +70,7 @@ function Home() {
     async function checkExpiration() {
 
         try {
+            console.log("Checking session expiration...");
             const res = await api.get("http://localhost:3000/profile")
             alert("Session is still valid");
             console.log("Expiration response", res.data);

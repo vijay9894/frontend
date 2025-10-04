@@ -2,11 +2,13 @@ import { createSlice , type PayloadAction } from "@reduxjs/toolkit";
 
 interface User {
   email: string;
+  accessToken?: string;
 }
 
 interface UserState {
   isAuthenticated: boolean;
   userData: User | null;
+   accessToken?: User['accessToken'];
 }
 
 const initialState: UserState = {
@@ -14,18 +16,23 @@ const initialState: UserState = {
   userData: localStorage.getItem('email')
     ? {  email: localStorage.getItem('email')! }
     : null,
+   accessToken: undefined 
 };
 
 const UserSlice = createSlice({
     name: 'User',
     initialState,
     reducers: {
-        login: (state , action: PayloadAction< User> ) => {
+        login: (state , action: PayloadAction<User>) => {
             state.isAuthenticated = true;
             state.userData = action.payload;
+            state.accessToken = action.payload.accessToken;
             localStorage.setItem('email', action.payload.email);
             localStorage.setItem('isAuthenticated', 'true');
             console.log("User logged in", action.payload);
+        },
+        setAccessToken : (state , action : PayloadAction<User>)=>{
+            state.accessToken = action.payload.accessToken;
         },
         logout :(state) =>{
             state.isAuthenticated = false;
@@ -36,5 +43,5 @@ const UserSlice = createSlice({
     }
 })
 
-export const { login, logout } = UserSlice.actions;
+export const { login, logout , setAccessToken } = UserSlice.actions;
 export default UserSlice.reducer;

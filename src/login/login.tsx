@@ -52,9 +52,13 @@ function MyLogin() {
 
             const res = await api.post("http://localhost:3000/login", { formemail, password });
 
+            const authHeaders = res.headers['authorization'];
+
+            console.log("access token from bearer" , authHeaders);
+
             console.log("Response from server:", res.data);
             console.log("Login successful", res.data.email);
-            dispatch(login({ email: res.data.email }))
+            dispatch(login({ email: res.data.email  , accessToken:authHeaders}));
             localStorage.setItem('email', formemail);
             localStorage.setItem('password', password);
             navigate('/home');
