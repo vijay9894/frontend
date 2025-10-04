@@ -48,17 +48,24 @@ function MyLogin() {
             return;
         }
         try {
+            console.log(" Sending login request...", formemail, password);
+
             const res = await api.post("http://localhost:3000/login", { formemail, password });
+
+            console.log("Response from server:", res.data);
             console.log("Login successful", res.data.email);
             dispatch(login({ email: res.data.email }))
             localStorage.setItem('email', formemail);
             localStorage.setItem('password', password);
             navigate('/home');
-        }catch (error) {
-            console.error("Login failed", error);
-            alert("Login failed. Please check your credentials.");
+
+        } catch (error: any) {
+            if (error.response) {
+                console.error("Server responded:", error.response.data);
+                alert(error.response.data.message);
+            }
         }
-      
+
     }
 
     async function handleEmailLogin() {
