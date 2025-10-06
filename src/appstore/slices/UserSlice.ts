@@ -3,12 +3,14 @@ import { createSlice , type PayloadAction } from "@reduxjs/toolkit";
 interface User {
   email: string;
   accessToken?: string;
+  mode?: string;
 }
 
 interface UserState {
   isAuthenticated: boolean;
   userData: User | null;
    accessToken?: User['accessToken'];
+   mode? : 'Light' | 'Dark' 
 }
 
 const initialState: UserState = {
@@ -16,7 +18,8 @@ const initialState: UserState = {
   userData: localStorage.getItem('email')
     ? {  email: localStorage.getItem('email')! }
     : null,
-   accessToken: undefined 
+   accessToken: undefined,
+   mode : (localStorage.getItem("mode") as "Light" | "Dark") || "Light"
 };
 
 const UserSlice = createSlice({
@@ -34,6 +37,11 @@ const UserSlice = createSlice({
         setAccessToken : (state , action : PayloadAction<User>)=>{
             state.accessToken = action.payload.accessToken;
         },
+        setDarkOrLightMode :(state , action : PayloadAction<{mode : 'Light' | 'Dark' }>)=>{
+          console.log("action payload" , action.payload)
+              state.mode = action.payload.mode;
+              localStorage.setItem("mode" ,state.mode)
+        },
         logout :(state) =>{
             state.isAuthenticated = false;
             state.userData = null;
@@ -43,5 +51,5 @@ const UserSlice = createSlice({
     }
 })
 
-export const { login, logout , setAccessToken } = UserSlice.actions;
+export const { login, logout , setAccessToken , setDarkOrLightMode} = UserSlice.actions;
 export default UserSlice.reducer;

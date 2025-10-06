@@ -1,6 +1,7 @@
 import { AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 import { FiShoppingCart } from "react-icons/fi";
+import { MdLightMode } from "react-icons/md";
 import {
     NavigationMenu,
     NavigationMenuItem,
@@ -14,7 +15,7 @@ import {
     PopoverTrigger,
 } from "@/components/ui/popover"
 import { IoIosSearch } from "react-icons/io";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom"
 
 import {
@@ -35,12 +36,18 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog"
 import { DialogClose } from "@radix-ui/react-dialog";
+import { Toggle } from "@/components/ui/toggle";
+import { setDarkOrLightMode } from "@/appstore/slices/UserSlice";
 
 
 function Design() {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const socialBooks = useSelector((state: any) => state.Social.books);
-    const mathBooks = useSelector((state: any) => state.Maths.books)
+    const mathBooks = useSelector((state: any) => state.Maths.books);
+    let mode = useSelector((state: any) => state.User.mode);
+    // console.log("mode"  , mode)
+
     let totalBookCount = 0;
 
     let socialcount = 0;
@@ -54,6 +61,12 @@ function Design() {
     }
 
     totalBookCount = socialcount + mathsCount;
+
+
+    const handleLightDarkMode = () => {
+        const newMode = mode === "Light" ? "Dark" : "Light";
+        dispatch(setDarkOrLightMode({ mode: newMode }));
+    }
 
     function handleAccountClick() {
         navigate('/home');
@@ -69,24 +82,24 @@ function Design() {
         <>
             <div className="h-20 flex items-center rounded-lg border border-gray-200">
                 <div className="ml-40 text-2xl ">
-                   <Dialog>
-                     <DialogTrigger className="cursor-pointer">
-                        <NavigationMenu>
-                            <NavigationMenuList>Pro</NavigationMenuList>
-                        </NavigationMenu>
-                    </DialogTrigger>
-                    <DialogContent className="h-50 shadow-xl rounded-lg border border-black">
-                        <DialogHeader>
-                            <DialogTitle className="text-2xl font-bold">Get Tailwind CSS Pro</DialogTitle>
-                            <DialogDescription className="mt-4 text-lg">
-                                Unlock advanced features and components with Tailwind CSS Pro. Elevate your projects with premium tools designed for professionals.
-                            </DialogDescription>
-                        </DialogHeader>
-                        <DialogClose className="mt-5">
-                            <Button className="h-10 w-20 cursor-pointer bg-white text-black hover:gray-100">Close</Button>
-                        </DialogClose>
-                    </DialogContent>
-                  </Dialog>
+                    <Dialog>
+                        <DialogTrigger className="cursor-pointer">
+                            <NavigationMenu>
+                                <NavigationMenuList>Pro</NavigationMenuList>
+                            </NavigationMenu>
+                        </DialogTrigger>
+                        <DialogContent className="h-50 shadow-xl rounded-lg border border-black">
+                            <DialogHeader>
+                                <DialogTitle className="text-2xl font-bold">Get Tailwind CSS Pro</DialogTitle>
+                                <DialogDescription className="mt-4 text-lg">
+                                    Unlock advanced features and components with Tailwind CSS Pro. Elevate your projects with premium tools designed for professionals.
+                                </DialogDescription>
+                            </DialogHeader>
+                            <DialogClose className="mt-5">
+                                <Button className="h-10 w-20 cursor-pointer bg-white text-black hover:gray-100">Close</Button>
+                            </DialogClose>
+                        </DialogContent>
+                    </Dialog>
                 </div>
                 <div className="ml-15 text-2xl ">
                     <button className="cursor-pointer">
@@ -109,9 +122,12 @@ function Design() {
                         </NavigationMenu>
                     </button>
                 </div>
+                <div className="ml-15 mt-3">
+                    <Toggle className="cursor-pointer" onClick={handleLightDarkMode}> <MdLightMode /> </Toggle>
+                </div>
             </div>
 
-            <div className="h-25 flex items-center shadow-xl rounded-lg border border-gray-200 sticky top-0 z-50 bg-white">
+            <div className="h-25 flex items-center shadow-xl rounded-lg border border-gray-200 sticky top-0 z-50 ">
                 <div className="ml-40 text-bold text-4xl ">
                     <h1>NPM</h1>
                 </div>
@@ -257,7 +273,6 @@ function Design() {
                     <hr className="mt-3 "></hr>
                 </div>
             </div>
-            <Pratice />
         </>
     )
 }

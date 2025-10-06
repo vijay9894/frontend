@@ -72,7 +72,7 @@ function Home() {
         try {
             console.log("Checking session expiration...");
             const res = await api.get("http://localhost:3000/profile")
-            alert("Session is still valid");
+            alert( res.data.message);
             console.log("Expiration response", res.data);
         }
         catch (error) {
@@ -84,18 +84,18 @@ function Home() {
 
     return (
         <>
-            <div className="bg-black h-15 border-0.1 border-white flex justify-end items-center p-4">
-                <button className=" mt-20 text-semibold text-white cursor-pointer border-2 p-2 bg-blue-500 hover:bg-red-700 rounded-xl" onClick={handleLogout}> Log Out </button>
+            <div className=" h-15 border-0.1 border-white flex justify-end items-center p-4">
+                <button className=" mt-20 text-semibold cursor-pointer border-2 p-2 bg-blue-500 hover:bg-red-700 rounded-xl" onClick={handleLogout}> Log Out </button>
             </div>
-            <div className="flex justify-center h-200 bg-black">
+            <div className="flex justify-center h-200 ">
                 <div className="flex  justify-center items-center">
-                    <h1 className="text-3xl text-white font-bold ">Welcome {email} </h1>
+                    <h1 className="text-3xl font-bold ">Welcome {email} </h1>
                 </div>
                 <div className="">
-                    <button className="ml-6 border-2 border-white text-white rounded-xl p-4 cursor-pointer" onClick={addBookToSocialSlice}> AddSocialBook :{socialbooks.length}</button>
-                    <button className="ml-6 border-2 border-white text-white rounded-xl p-4 cursor-pointer" onClick={addBookToMathsSlice}> AddMathsBook :{mathsbooks.length} </button>
-                    <button className="ml-6 border-2 border-white text-white rounded-xl p-4 cursor-pointer" onClick={goToCart}> GoToCart </button>
-                    <button className="ml-6 border-2 border-white text-white rounded-xl p-4 cursor-pointer" onClick={checkExpiration}> checkExpiration </button>
+                    <button className="ml-6 border-2  rounded-xl p-4 cursor-pointer" onClick={addBookToSocialSlice}> AddSocialBook :{socialbooks.length}</button>
+                    <button className="ml-6 border-2  rounded-xl p-4 cursor-pointer" onClick={addBookToMathsSlice}> AddMathsBook :{mathsbooks.length} </button>
+                    <button className="ml-6  border-2  rounded-xl p-4 cursor-pointer" onClick={goToCart}> GoToCart </button>
+                    <button className="ml-6 border-2  rounded-xl p-4 cursor-pointer" onClick={checkExpiration}> ProfileOnly for admins </button>
                 </div>
             </div>
         </>

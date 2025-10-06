@@ -76,7 +76,7 @@ function MyLogin() {
         window.location.href = await "http://localhost:3000/google/login"
     }
 
-    return <div className="flex justify-center items-center h-screen bg-gray-700">
+    return <div className="flex justify-center items-center h-screen ">
         <div className="border-2 border-pink text-white rounded-lg lg:w-105 lg:h-96 p-10 bg-black sm:h-full w-full flex flex-col justify-center shadow-xl">
             <div className="flex justify-center font-semibold sm:font-bold">   Login Form </div>
             <div className="flex flex-col space-y-8 m-10 justify-center h-60">
