@@ -25,7 +25,7 @@ function MyLogin() {
                 navigate('/')
             }
             localStorage.setItem('email', email as string);
-            navigate('/home');
+            navigate('/pratice');
         }, []);
     }
 
@@ -61,7 +61,7 @@ function MyLogin() {
             dispatch(login({ email: res.data.email  , accessToken:authHeaders}));
             localStorage.setItem('email', formemail);
             localStorage.setItem('password', password);
-            navigate('/home');
+            navigate('/pratice');
 
         } catch (error: any) {
             if (error.response) {
