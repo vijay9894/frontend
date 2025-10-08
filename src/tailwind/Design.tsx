@@ -2,18 +2,12 @@ import { AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 import { FiShoppingCart } from "react-icons/fi";
 import { MdLightMode } from "react-icons/md";
+import { IoMdNotificationsOutline } from "react-icons/io";
 import {
     NavigationMenu,
-    NavigationMenuItem,
     NavigationMenuList,
-    NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu"
 import { Avatar } from "@radix-ui/react-avatar"
-import {
-    Popover,
-    PopoverContent,
-    PopoverTrigger,
-} from "@/components/ui/popover"
 import { IoIosSearch } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom"
@@ -26,7 +20,6 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import Pratice from "./Pratice";
 import {
     Dialog,
     DialogContent,
@@ -38,6 +31,8 @@ import {
 import { DialogClose } from "@radix-ui/react-dialog";
 import { Toggle } from "@/components/ui/toggle";
 import { setDarkOrLightMode } from "@/appstore/slices/UserSlice";
+import { useEffect, useState } from "react";
+import { io, Socket } from "socket.io-client";
 
 
 function Design() {
@@ -47,6 +42,9 @@ function Design() {
     const mathBooks = useSelector((state: any) => state.Maths.books);
     let mode = useSelector((state: any) => state.User.mode);
     // console.log("mode"  , mode)
+
+    const [socket, setSocket] = useState<Socket | null>(null);
+    const [recieveMessage, setrecieveMessage] = useState<string[]>([]);
 
     let totalBookCount = 0;
 
@@ -62,6 +60,25 @@ function Design() {
 
     totalBookCount = socialcount + mathsCount;
 
+    useEffect(() => {
+        const newSocket = io('http://localhost:3001', { query: { userId: 5 } });
+        setSocket(newSocket);
+
+        newSocket.on('connect', () => {
+            console.log("connected to Server")
+        })
+
+        newSocket.on('receiveMessage', (msg) => {
+            setrecieveMessage((prevMessages) => [...prevMessages, msg.content]);
+        });
+
+        return () => { newSocket.close() }
+
+    }, [])
+
+    const handleClose = () => {
+        setrecieveMessage([]);
+    }
 
     const handleLightDarkMode = () => {
         const newMode = mode === "Light" ? "Dark" : "Light";
@@ -81,7 +98,7 @@ function Design() {
     return (
         <>
             <div className="h-20 flex items-center rounded-lg border border-gray-200">
-                <div className="ml-40 text-2xl ">
+                <div className="ml-40 text-2xl">
                     <Dialog>
                         <DialogTrigger className="cursor-pointer">
                             <NavigationMenu>
@@ -125,6 +142,25 @@ function Design() {
                 <div className="ml-15 mt-3">
                     <Toggle className="cursor-pointer" onClick={handleLightDarkMode}> <MdLightMode /> </Toggle>
                 </div>
+                <Dialog>
+                    <div className="ml-10 mt-3 flex">
+                        <DialogTrigger className="text-xl cursor-pointer" > <IoMdNotificationsOutline /></DialogTrigger>
+                        {recieveMessage.length > 0 ? <div className="text-sm text-white bg-red-600 h-4 w-5 flex items-center justify-center rounded-full text-red-700">{recieveMessage.length}</div> : ''}
+                        <DialogContent className="w-full h-full shadow-xl rounded-lg border border-black">
+                            <DialogTitle className="mt-5 flex justify-center">
+                                Notifications
+                            </DialogTitle>
+                            <DialogDescription className="mt-4 text-lg ">
+                                {recieveMessage.length === 0 ? <p className="flex items-center justify-center">No New Notifications  </p> : recieveMessage.map((msg, index) => <p key={index} className="w-3/4 p-2 m-2 border border-gray-200 rounded-lg shadow-md"> {msg} </p>)}
+                            </DialogDescription>
+                            <DialogClose onClick={handleClose} className=" fixed bottom-4 left-1/2 transform -translate-x-1/2 
+             border-2 border-gray-400 
+             flex justify-center items-center 
+             cursor-pointer h-8 px-4 rounded-md 
+             "> Mark As Read </DialogClose>
+                        </DialogContent>
+                    </div>
+                </Dialog>
             </div>
 
             <div className="h-25 flex items-center shadow-xl rounded-lg border border-gray-200 sticky top-0 z-50 ">

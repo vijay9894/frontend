@@ -7,7 +7,7 @@ export const store = configureStore({
     reducer: {
         Social : SocialSlice,
         Maths : MathSlice,
-        User : UserSlice
+        User : UserSlice    
     },
 });
 

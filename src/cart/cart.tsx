@@ -31,11 +31,11 @@ function goToPratice(){
     
 return (
         <>
-           <div className="bg-black h-236"> 
-               <p className="text-white ">  No of Books Are Added : {totalBookCount} </p>
+           <div className=" h-236"> 
+               <p className=" ">  No of Books Are Added : {totalBookCount} </p>
                <div className="">
-                       < button className="border-2 border-white rounded-xl p-3 mt-4 text-white cursor-pointer " onClick={goToHome}> Go To Home </button>
-                       < button className="ml-4 border-2 border-white rounded-xl p-3 mt-4 text-white cursor-pointer " onClick={goToPratice}> Go To Main </button>
+                       < button className="border-2 rounded-xl p-3 mt-4  cursor-pointer " onClick={goToHome}> Go To Home </button>
+                       < button className="ml-4 border-2 rounded-xl p-3 mt-4  cursor-pointer " onClick={goToPratice}> Go To Main </button>
                </div>
           </div>
         </>
