@@ -143,27 +143,22 @@ function Design() {
                     <Toggle className="cursor-pointer" onClick={handleLightDarkMode}> <MdLightMode /> </Toggle>
                 </div>
                 <Dialog>
-                    <div className="ml-10 mt-3 flex">
+                    <div className="ml-10 mt-3 flex"> 
                         <DialogTrigger className="text-xl cursor-pointer" > <IoMdNotificationsOutline /></DialogTrigger>
                         {recieveMessage.length > 0 ? <div className="text-sm text-white bg-red-600 h-4 w-5 flex items-center justify-center rounded-full text-red-700">{recieveMessage.length}</div> : ''}
-                        <DialogContent className="w-full h-full shadow-xl rounded-lg border border-black">
+                        <DialogContent className="fixed w-screen h-screen  bg-white p-6 overflow-y-auto">
                             <DialogTitle className="mt-5 flex justify-center">
                                 Notifications
                             </DialogTitle>
                             <DialogDescription className="mt-4 text-lg ">
                                 {recieveMessage.length === 0 ? <p className="flex items-center justify-center">No New Notifications  </p> : recieveMessage.map((msg, index) => <p key={index} className="w-3/4 p-2 m-2 border border-gray-200 rounded-lg shadow-md"> {msg} </p>)}
                             </DialogDescription>
-                            <DialogClose onClick={handleClose} className=" fixed bottom-4 left-1/2 transform -translate-x-1/2 
-             border-2 border-gray-400 
-             flex justify-center items-center 
-             cursor-pointer h-8 px-4 rounded-md 
-             "> Mark As Read </DialogClose>
-                        </DialogContent>
+                            <DialogClose onClick={handleClose} className="fixed bottom-4 left-1/2 transform -translate-x-1/2 border-2 border-gray-400 flex justify-center items-center cursor-pointer h-8 px-4 rounded-md "> Mark As Read </DialogClose></DialogContent>
                     </div>
                 </Dialog>
             </div>
 
-            <div className="h-25 flex items-center shadow-xl rounded-lg border border-gray-200 sticky top-0 z-50 ">
+            <div className="h-25 flex items-center shadow-xl rounded-lg border border-gray-200 sticky top-0 z-50">
                 <div className="ml-40 text-bold text-4xl ">
                     <h1>NPM</h1>
                 </div>
@@ -182,7 +177,7 @@ function Design() {
                     </div>
                 </div>
                 <div className="ml-10">
-                    <DropdownMenu>
+                    <DropdownMenu >
                         <DropdownMenuTrigger>  <Avatar className="mt-8 cursor-pointer">
                             <AvatarImage className="h-10 rounded-lg" src="https://github.com/shadcn.png" />
                             <AvatarFallback>CN</AvatarFallback>

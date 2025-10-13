@@ -8,6 +8,11 @@ import TailwindPratice from './tailwind/TailwinPratice.tsx'
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import PersonalChat from './chatting/PersonalChat.tsx';
+// import Form from './formwithValidations/Form.tsx';
+// import Translator from './tailwind/Translator.tsx';
+import Croppers from './tailwind/Cropper.tsx';
+import ReactCropper from './tailwind/ReactCropper.tsx';
+import DataTable from './tailwind/DataTable.tsx';
 
 function App() {
   const mode = useSelector((state:any)=>state.User.mode)
@@ -31,6 +36,8 @@ function App() {
               <Route path='/pratice' element={<Design/>}/>
               <Route path='/tail' element={<TailwindPratice/>}/>
               <Route path='/chat' element={<PersonalChat/>}/>
+              <Route path='/cropper' element={<ReactCropper/>}/>
+              <Route path='/table' element={<DataTable columns={[]} data={[]}/>}/>
          </Routes>
     </BrowserRouter>
     </>

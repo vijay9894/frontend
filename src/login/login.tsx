@@ -50,7 +50,7 @@ function MyLogin() {
         try {
             console.log(" Sending login request...", formemail, password);
 
-            const res = await api.post("http://localhost:3000/login", { formemail, password });
+            const res = await api.post( "login", { formemail, password });
 
             const authHeaders = res.headers['authorization'];
 
@@ -73,7 +73,7 @@ function MyLogin() {
     }
 
     async function handleEmailLogin() {
-        window.location.href = await "http://localhost:3000/google/login"
+        window.location.href = await "http://localhost:3000/google/login"   
     }
 
     return <div className="flex justify-center items-center h-screen ">
