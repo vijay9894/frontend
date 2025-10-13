@@ -10,7 +10,6 @@ import { useEffect } from 'react';
 import PersonalChat from './chatting/PersonalChat.tsx';
 // import Form from './formwithValidations/Form.tsx';
 // import Translator from './tailwind/Translator.tsx';
-import Croppers from './tailwind/Cropper.tsx';
 import ReactCropper from './tailwind/ReactCropper.tsx';
 import DataTable from './tailwind/DataTable.tsx';
 

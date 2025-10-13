@@ -58,8 +58,6 @@ const ReactCropper = () => {
         setIsCropped(false);
     }
 
-
-
     return (
      <>
             <input className="hidden" type="file" accept="image/*" ref={fileInputRef} onChange={handleFileChange} ></input>
@@ -99,7 +97,7 @@ const ReactCropper = () => {
             {croppedImage && (
                 <>
                 <div>
-                    <img src={croppedImage} alt="Cropped" className="ml-20 mt-5 w-200 h-100" />
+                    <img src={croppedImage} alt="Cropped" className="ml-20 mt-5 w-200 h-100"/>
                     {!isCropped && (  <button className="p-4 m-4 bg-blue-400 cursor-pointer rounded-2xl" onClick={saveImage}> Save Changes </button>)}
                     {isCropped && (  <button className="p-4 m-4 bg-blue-400 cursor-pointer rounded-2xl" onClick={handleEditImage}> Edit Image  </button>)}
                     {isCropped && (  <button className="p-4 m-4 bg-blue-400 cursor-pointer rounded-2xl" onClick={handleSubmit}> Submit  </button>)}
